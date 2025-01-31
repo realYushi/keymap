@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,	   KC_W,	 KC_E,	  KC_R,    KC_T,	KC_Y,	  KC_U,    KC_I,	KC_O,	 KC_P,	   KC_LBRC,  KC_RBRC,  KC_BSLS,          MO(MAC_FN1),
         LT(CAPSLOCK,KC_ESC),HOME_A,HOME_S,HOME_D,HOME_F,KC_G,             KC_H,    HOME_J,  HOME_K,  HOME_L,   HOME_SCLN,KC_QUOT,  KC_ENT,           MO(FN2),
         KC_LSFT,           KC_Z,	 KC_X,	  KC_C,    KC_V,	LT(MOUSE,KC_B),     KC_B, KC_N,	KC_M,	 KC_COMM,  KC_DOT,	 KC_SLSH,  KC_RSFT, KC_UP,
-        KC_LCTL, KC_LOPTN, KC_LCMMD,          LT(SYMBOLS,KC_SPC),LT(NUMBERS,KC_ENT), HYPR_T(KC_F19),LT(SYMBOLS,KC_BSPC),KC_RCMMD,   KC_LEFT, KC_DOWN, KC_RGHT),
+        KC_LCTL, KC_LOPTN, KC_LCMMD,          LT(SYMBOLS,KC_SPC),HYPR_T(KC_ENT), LT(NUMBERS,KC_F19),LT(SYMBOLS,KC_BSPC),KC_RCMMD,   KC_LEFT, KC_DOWN, KC_RGHT),
 
     [WIN_BASE] = LAYOUT_69_ansi(
         KC_ESC,  KC_1,	   KC_2,	 KC_3,	  KC_4,    KC_5,	KC_6,	  KC_7,    KC_8,	KC_9,	 KC_0,	   KC_MINS,  KC_EQL,   KC_BSPC,          KC_MUTE,

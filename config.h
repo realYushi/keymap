@@ -11,7 +11,7 @@
 #define MOUSEKEY_DELAY 5          // 5ms delay before cursor movement
 #define MOUSEKEY_INTERVAL 10      // 10ms between movements
 #define MOUSEKEY_MOVE_DELTA 16    // 16px initial step size
-#define MOUSEKEY_INITIAL_SPEED 100  // Initial cursor speed (px/sec)
+#define MOUSEKEY_INITIAL_SPEED 200  // Initial cursor speed (px/sec)
 #define MOUSEKEY_BASE_SPEED 5000    // Max base speed
 #define MOUSEKEY_DECELERATED_SPEED 400   // Speed when slowing down
 #define MOUSEKEY_ACCELERATED_SPEED 3000  // Speed when accelerating
