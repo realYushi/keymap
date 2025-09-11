@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "keychron_common.h"
 
-enum layers { MAC_BASE, WIN_BASE, MAC_FN1, WIN_FN1, FN2, SYMBOLS, NUMBERS, NAV, MOUSE};
+enum layers { MAC_BASE, WIN_BASE, MAC_FN1, WIN_FN1, FN2, SYMBOLS, NUMBERS, NAV, MOUSE , HYPR };
 enum TD_keycodes { TD_CBR, TD_ABR, TD_PRN, TD_SBR };
 
 tap_dance_action_t tap_dance_actions[] = {
@@ -11,23 +11,23 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_SBR] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC),
 };
 // Left-hand home row mods
-#define HOME_A LCTL_T(KC_A)
-#define HOME_S LALT_T(KC_S)
-#define HOME_D LGUI_T(KC_D)
-#define HOME_F LSFT_T(KC_F)
+#define HOME_Z LCTL_T(KC_Z)
+#define HOME_X LALT_T(KC_X)
+#define HOME_C LGUI_T(KC_C)
+#define HOME_V LSFT_T(KC_V)
 // Right-hand home row mods
-#define HOME_J RSFT_T(KC_J)
-#define HOME_K RGUI_T(KC_K)
-#define HOME_L LALT_T(KC_L)
-// #define HOME_SCLN RCTL_T(KC_SCLN)
+#define HOME_M RSFT_T(KC_M)
+#define HOME_COMM RGUI_T(KC_COMM)
+#define HOME_DOT ALT_T(KC_DOT)
+#define HOME_SLSH RCTL_T(KC_SLSH)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_69_ansi(
         KC_CAPS,  KC_1,	   KC_2,	 KC_3,	  KC_4,    KC_5,	KC_6,	  KC_7,    KC_8,	KC_9,	 KC_0,	   KC_MINS,  KC_EQL,   KC_BSPC,          KC_MPLY,
         KC_TAB,  KC_Q,	   KC_W,	 KC_E,	  KC_R,    KC_T,	KC_Y,	  KC_U,    KC_I,	KC_O,	 KC_P,	   KC_LBRC,  KC_RBRC,  KC_BSLS,          MO(MAC_FN1),
-        HYPR_T(KC_ESC),HOME_A,HOME_S,HOME_D,  HOME_F,  KC_G,              KC_H,    HOME_J,  HOME_K,  HOME_L,   LT(SYMBOLS,KC_SCLN),KC_QUOT,  KC_ENT, MO(FN2),
-        KC_LSFT,           KC_Z,	 KC_X,	  KC_C,    KC_V,	KC_B,     KC_B,    KC_N,	KC_M,	 KC_COMM,  KC_DOT,	 KC_SLSH,  KC_RSFT, KC_UP,
+        LT(HYPR,KC_ESC),KC_A,KC_S,	 KC_D,	  KC_F,    KC_G,              KC_H,    KC_J,	KC_K,	 KC_L,   LT(SYMBOLS,KC_SCLN),KC_QUOT,  KC_ENT,   MO(FN2),
+        KC_LSFT,           HOME_Z,	 HOME_X,  HOME_C,  HOME_V,	KC_B,     KC_B,    KC_N,	HOME_M,	 HOME_COMM,  HOME_DOT,	 HOME_SLSH,  KC_RSFT, KC_UP,
         KC_LCTL, KC_LOPTN, KC_LCMMD,          KC_SPC,           LT(MOUSE,KC_F19), LT(NUMBERS,KC_F18),KC_BSPC,           KC_RCMMD,          KC_LEFT, KC_DOWN, KC_RGHT),
 
     [WIN_BASE] = LAYOUT_69_ansi(
@@ -58,6 +58,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,           _______,  _______, _______, _______, BAT_LVL,  BAT_LVL, _______, _______, _______,  _______,  _______,  _______, _______,
         _______, _______,  _______,           _______,          _______,  _______,          _______,           _______,            _______, _______, _______),
 
+    [HYPR] = LAYOUT_69_ansi(
+        _______, _______,  _______,  _______, _______, _______, _______,  _______, _______, _______, _______,  _______,  _______,   _______,          _______,
+        _______, _______,  _______,  _______, _______, _______, _______,  _______, _______, _______, _______,  _______,  _______,  _______,          _______,
+        _______, _______,  _______,  _______, _______, _______,           KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,  _______,  _______,  _______,          _______,
+        _______,           _______,  _______, _______, _______, _______,  _______, _______, _______, _______,  _______,  _______,  _______, _______,
+        _______, _______,  _______,           _______,          _______,  _______,          _______,           _______,            _______, _______, _______),
     [SYMBOLS] = LAYOUT_69_ansi(
         _______,  _______,  _______, _______, _______, _______,  _______, _______, _______, _______,  _______,  _______,  _______, _______,         _______,
         _______,  TD(TD_PRN),KC_HASH,KC_CIRC, KC_AMPR, KC_TILD,  KC_AT,   KC_DLR, KC_COLN,  _______,_______,  _______,  _______, _______,         _______,
@@ -95,7 +101,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		[FN2]	   = {ENCODER_CCW_CW(_______, _______)},
         [SYMBOLS]  = {ENCODER_CCW_CW(_______, _______)},
         [NUMBERS]  = {ENCODER_CCW_CW(_______, _______)},
-        [MOUSE]    = {ENCODER_CCW_CW(_______, _______)},  // Scroll wheel for mouse layer
+        [MOUSE]    = {ENCODER_CCW_CW(_______, _______)},  
+        [HYPR]    = {ENCODER_CCW_CW(_______, _______)},  
+
 	};
 #endif // ENCODER_MAP_ENABLE
 // clang-format on
@@ -104,32 +112,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
     
-    // Handle Hyper + HJKL as arrow keys
-    if (record->event.pressed && (get_mods() & MOD_MASK_CTRL) && (get_mods() & MOD_MASK_SHIFT) && (get_mods() & MOD_MASK_ALT) && (get_mods() & MOD_MASK_GUI)) {
-        uint8_t saved_mods = get_mods();  // Save current modifiers
-        clear_mods();                     // Clear for clean arrow key press
-        
-        switch (keycode) {
-            case KC_H:
-                tap_code(KC_LEFT);
-                break;
-            case HOME_J:
-                tap_code(KC_DOWN);
-                break;
-            case HOME_K:
-                tap_code(KC_UP);
-                break;
-            case HOME_L:
-                tap_code(KC_RIGHT);
-                break;
-            default:
-                set_mods(saved_mods);     // Restore mods if not arrow key
-                return true;              // Let other keys process normally
-        }
-        
-        set_mods(saved_mods);             // Restore the Hyper modifiers
-        return false;                     // Prevent further processing
-    }
     
     return true;
 }
