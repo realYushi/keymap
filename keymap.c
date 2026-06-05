@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,	   KC_W,	 KC_E,	  KC_R,    KC_T,	KC_Y,	  KC_U,    KC_I,	KC_O,	 KC_P,	   KC_LBRC,  KC_RBRC,  KC_BSLS,          MO(MAC_FN1),
         HYPR_T(KC_ESC),   HOME_A,HOME_S,HOME_D,HOME_F,KC_G,              KC_H,  HOME_J,  HOME_K,   HOME_L,    LT(SYMBOLS,KC_SCLN),KC_QUOT,  KC_ENT, MO(FN2),
         KC_LSFT,           KC_Z,	 KC_X,	  KC_C,    KC_V,	KC_B,     KC_B,    KC_N,	KC_M,	 KC_COMM,  KC_DOT,	 KC_SLSH,  KC_RSFT, KC_UP,
-        KC_LCTL, KC_LOPTN, KC_LCMMD,          KC_SPC,           LT(MOUSE,KC_F19), LT(NUMBERS,KC_F18),KC_BSPC,           KC_RCMMD,          KC_LEFT, KC_DOWN, KC_RGHT),
+        KC_LCTL, KC_LOPTN, KC_LCMMD,          KC_SPC,           LT(MOUSE,KC_F19), LT(NUMBERS,KC_ENT),KC_BSPC,           KC_RCMMD,          KC_LEFT, KC_DOWN, KC_RGHT),
 
     [WIN_BASE] = LAYOUT_69_ansi(
         KC_ESC,  KC_1,	   KC_2,	 KC_3,	  KC_4,    KC_5,	KC_6,	  KC_7,    KC_8,	KC_9,	 KC_0,	   KC_MINS,  KC_EQL,   KC_BSPC,          KC_MUTE,
@@ -87,15 +87,53 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		[FN2]	   = {ENCODER_CCW_CW(_______, _______)},
         [SYMBOLS]  = {ENCODER_CCW_CW(_______, _______)},
         [NUMBERS]  = {ENCODER_CCW_CW(_______, _______)},
-        [MOUSE]    = {ENCODER_CCW_CW(_______, _______)},  
+        [MOUSE]    = {ENCODER_CCW_CW(_______, _______)},
 	};
 #endif // ENCODER_MAP_ENABLE
 // clang-format on
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        // Home row mods: quicker tap/hold decision.
+        case HOME_A:
+        case HOME_S:
+        case HOME_D:
+        case HOME_F:
+        case HOME_J:
+        case HOME_K:
+        case HOME_L:
+            return 220;
+
+        // Esc should stay snappy.
+        case HYPR_T(KC_ESC):
+            return 200;
+
+        // Layer-taps: give yourself a little more time.
+        case LT(SYMBOLS, KC_SCLN):
+        case LT(MOUSE, KC_F19):
+        case LT(NUMBERS, KC_ENT):
+            return 260;
+
+        default:
+            return TAPPING_TERM;
+    }
+}
+
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(SYMBOLS, KC_SCLN):
+        case LT(MOUSE, KC_F19):
+        case LT(NUMBERS, KC_ENT):
+            return true;
+        default:
+            return false;
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_keychron_common(keycode, record)) {
         return false;
     }
-    
-    
+
+
     return true;
 }

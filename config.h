@@ -1,14 +1,18 @@
-// Configure the global tapping term (default: 200ms)
+// Tap-hold tuning for Keychron's older QMK fork.
 #define TAPPING_TERM 250
-
-// Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
+#define TAPPING_TERM_PER_KEY
 #define QUICK_TAP_TERM 100
+
+// Gentle hold behavior for home-row mods.
+#define PERMISSIVE_HOLD
+
+// More aggressive hold behavior only for selected layer-tap keys.
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
-// Allow holding keys while tapping other keys
-#define CHORDAL_HOLD
-#define FLOW_TAP_TERM 150
-// mouse
-#define MK_KINETIC_SPEED	undefined	//Enable kinetic mode
+
+// Mouse
+#define MK_KINETIC_SPEED	// Enable kinetic mode
 #define MOUSEKEY_DELAY	5	//Delay between pressing a movement key and cursor movement
 #define MOUSEKEY_INTERVAL	10	//Time between cursor movements in milliseconds
 #define MOUSEKEY_MOVE_DELTA	16	//Step size for accelerating from initial to base speed
